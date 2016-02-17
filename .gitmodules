@@ -1,0 +1,9 @@
+[submodule "2048"]
+	path = 2048
+	url = https://github.com/classicL/2048.git
+[submodule "MI"]
+	path = MI
+	url = https://github.com/classicL/MI.git
+[submodule "GTD-Tools"]
+	path = GTD-Tools
+	url = https://github.com/classicL/GTD-Tools.git
