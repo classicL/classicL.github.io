@@ -7,3 +7,6 @@
 [submodule "GTD-Tools"]
 	path = GTD-Tools
 	url = https://github.com/classicL/GTD-Tools.git
+[submodule "website-demo"]
+	path = website-demo
+	url = https://github.com/classicL/website-demo.git
