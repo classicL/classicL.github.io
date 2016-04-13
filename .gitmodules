@@ -10,3 +10,6 @@
 [submodule "website-demo"]
 	path = website-demo
 	url = https://github.com/classicL/website-demo.git
+[submodule "Todo"]
+	path = Todo
+	url = https://github.com/classicL/Todo.git
