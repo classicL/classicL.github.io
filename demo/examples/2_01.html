@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>鼠标悬停提示</title>
+	<style>
+	.box { width: 300px; margin: 100px auto; border: 1px solid #ccc; padding: 20px 50px; }
+	ol { list-style-position: inside; padding: 0; margin: 0; }
+	li { position: relative; width: 300px; height: 35px; line-height: 35px; }
+	p { white-space:nowrap; overflow:hidden; text-overflow:ellipsis;  }
+	a { text-decoration: none; color: #666; }
+	#tip { position: absolute; display: none; background-color: rgba(200,200,200,.5); color: #999; padding: 10px; font-size: 12px; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ol>
+			<li>
+				<p><a href="#">科比享受恨意 众星致敬 魔术师:没有下一个你</a></p>
+			</li>
+			<li>
+				<p><a href="#">欧冠-巴萨被灭 难破魔咒 拜仁3-2淘汰本菲卡</a></p>
+			</li>
+			<li>
+				<p><a href="#">足总杯-曼联2-1西汉姆晋级 本泽马无缘欧洲杯</a></p>
+			</li>
+			<li>
+				<p><a href="#">国足飞行距离超5万公里 国足或包机战12强赛</a></p>
+			</li>
+			<li>
+				<p><a href="#">许家印周末再设宴请恒大 刘永灼仍主管足球</a></p>
+			</li>
+		</ol>
+		<div id="tip"></div>
+	</div>
+	<script>
+		(function(){
+			var li = document.getElementsByTagName('li');
+			var tip = document.getElementById('tip');
+			for (var i = 0; i < li.length; i++) {
+				li[i].onmousemove = function(e){
+					var e = e || window.event;
+					tip.style.display = "block";
+					tip.innerHTML = this.querySelector("a").innerHTML;
+					tip.style.left = e.clientX + 10 + "px";
+					tip.style.top = e.clientY+ 10 + "px";						
+				}
+				li[i].onmouseout = function(){
+					console.log(9)
+					tip.style.display = "none";
+				}
+			}
+		})()
+	</script>
+</body>
+</html>

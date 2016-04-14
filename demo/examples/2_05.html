@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>网易</title>
+	<link rel="stylesheet" href="css/style.css">
+	<style>
+	body,div,a,ul,ol,li,dt,dl,dd,img { margin: 0; padding: 0; }
+	ul,ol { list-style: none; }
+	a { text-decoration: none; color: #000; }
+	.fl { float: left; }
+	.fr { float: right; }
+	.container { width: 960px; margin: 0 auto; }
+	.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+
+	body { height: 3000px; }
+
+	/*ntes-nav*/
+	.ntes-nav { position: relative; z-index: 1; height: 43px; border-bottom: 2px solid #606060; background-color: #333; }
+	.select-title { cursor: pointer; color: #fff; line-height: 20px; font-size: 12px; float: left; width: 100%; height: 43px; }
+	.select-title .l-t-t { float: left; width: 100%; margin-top: 11px; height: 25px; }
+	.select-title-arr { float: right; width: 0; border-color: #c2c2c2 transparent transparent; border-width: 4px; border-style: solid; margin: 10px 0 0 5px; transition: all .5s; }
+	.select-list-wrap { position: absolute; display: none; top: 55px; background-color: #fff; box-shadow: 0 0 5px #585858; padding: 5px 0; }
+	.select-list-wrap a { color: #585858; display: block; font-size: 12px; padding: 0 10px; width: 105px; }
+	.select-list-wrap a span { display: block; padding: 10px 10px; border-top: 1px dashed #dcdddd; }
+	.select-list-wrap li:first-of-type span { border-top:none; }
+	.select-list-wrap a:hover { background-color: #dcdddd; }
+	.select-list-apps { width: 40px; padding-right: 20px; margin-right: 20px; }
+	.select-list-apps .l-t-t { padding-left: 10px; }
+	.bi { padding: 0 5px 0 2px; width: 35px; height: 43px; border-left: 1px solid #3f3f3f; border-right: 1px solid #1f1f1f; }
+	.bi .l-t-t { background-image: url("img/nav_sprite.png"); background-position: 0 2px; background-repeat: no-repeat; }
+	.select-list-home a { color: #fff; }
+	.select-list-home a:hover { text-decoration: underline; }
+	.select-list-landing { width: 64px; height: 45px; background-color: #d61313; border-bottom: 4px solid #8f2f2f; text-align: center; }
+	.select-list-register { width: 90px; padding-right: 10px; padding-left: 10px; }
+	.select-list-register .select-list-wrap a { width: 200px; }
+	.select-list-kaola { width: 68px; }
+	.select-list-kaola .l-t-t { background-position: 2px -393px; }
+	.select-list-mail .l-t-t { background-position: 2px -23px; }
+	.select-list-money .l-t-t { background-position: 2px 0; }
+	.select-list-cart .l-t-t { background-position: 2px -504px; }
+	.select-list-huatian .l-t-t { background-position: 2px -92px; }
+	.select-list-lofter .l-t-t { background-position: 2px -478px; }
+	.select-list-bobo { width: 68px; }
+	.select-list-bobo .l-t-t { background-position: 2px -116px; }
+	.select-list-newsapp .l-t-t { background-position: 6px -542px; }
+
+
+
+
+	/*heading*/
+	.heading { margin-top: 35px; }
+	.heading-title { height: 55px; border-bottom: 4px solid #206f96; margin-bottom: 10px; }
+	.heading-logo,.heading-left,.heading-right { height: 40px; width: 122px; background-image: url("img/heading.png"); }
+	.heading-logo a,.heading-left a,.heading-right a { display: inline-block; height: 100%; width: 100%; }
+	.heading-left { width: 450px; background-position: 0 -40px; margin-right: 15px; }
+	.heading-right { background-position: 0 -80px; width: 130px; }
+
+	.heading-nav { height: 66px; margin-bottom: 14px; }
+	.heading-nav-c { float: left; border-right: 1px dashed #ddd; padding-right: 1px; margin-right: 16px; }
+	.heading-nav-c:last-of-type { margin-right: 0; padding-right: 0; border-right: none; }
+	.heading-nav-c a { display: inline-block; font-size: 12px; line-height: 22px; width: 43px; }
+	.heading-nav-c a:hover { text-decoration: underline; }
+	/*.heading-nav-c6 .heading-nav-c-l a { width: 38px; display: inline-block; }*/
+
+	.heading-ad { position: relative; width: 958px; height: 158px; background-color: #f9f9f9; border: 1px solid #dcdddd; font-size: 12px; }
+	.heading-ad a { color: #376a77; }
+	.heading-ad a:hover { text-decoration: underline; }
+	.heading-ad-l { width: 168px; float: left; }
+	.tab-u { position: relative; height: 51px; width: 18px; margin: 1px; background-color: #e6eaed; }
+
+	.tab-u a { display: block; padding-top: 12px; padding-bottom: 11px; text-align: center; color: #376a77; }
+	.heading-ad-l .heading-ad-arr { position: absolute; left: 18px; top: 23px; display: none; width: 0; height: 0; border-color: transparent transparent transparent #d1dae1; border-style: solid; border-width: 4px; }
+	.heading-ad .active a { background-color: #d1dae1; }
+	.heading-ad .active .heading-ad-arr { display: block; }
+	.heading-ad-content { position: absolute; line-height: 24px; top: 8px; display: none; }
+	.heading-ad-l .heading-ad-content { left: 28px; }
+	.heading-ad-c { width: 620px; height: 150px; float: left; margin-top: 8px; margin-bottom: 8px; line-height: 24px; }
+	.heading-ad-c img { height: 100px; margin-bottom: -8px; }
+	.heading-ad-c a { margin-right: 10px; }
+	.heading-ad-r { width: 168px; float: right; }
+	.heading-ad-r .heading-ad-content { right: 28px; }
+	.heading-ad-r ul { float: right; }
+	.heading-ad-r .heading-ad-arr { position: absolute; right: 18px; top: 23px; display: none; width: 0; height: 0; border-color: transparent #d1dae1 transparent transparent; border-style: solid; border-width: 4px; }
+	</style>
+</head>
+<body>
+	<div class="ntes-nav">
+		<div class="ntes-nav-wrap container">
+			<div>
+				<div class="ntes-nav-select select-list-apps fl">
+					<div class="select-title">
+						<div class="l-t-t">应用
+							<div class="select-title-arr"></div>
+						</div>
+					</div>
+					<div class="select-list-wrap">
+						<ul class="select-list">
+							<li class="select-list-item"><a href="#"><span>网易新闻</span></a></li>
+							<li class="select-list-item"><a href="#"><span>网易云音乐</span></a></li>
+							<li class="select-list-item"><a href="#"><span>网易云阅读</span></a></li>
+							<li class="select-list-item"><a href="#"><span>网易云笔记</span></a></li>
+							<li class="select-list-item"><a href="#"><span>网易花田</span></a></li>
+							<li class="select-list-item"><a href="#"><span>网易公开课</span></a></li>
+							<li class="select-list-item"><a href="#"><span>网易彩票</span></a></li>
+							<li class="select-list-item"><a href="#"><span>有道词典</span></a></li>
+							<li class="select-list-item"><a href="#"><span>邮箱大师</span></a></li>
+							<li class="select-list-item"><a href="#"><span>LOFTER</span></a></li>
+							<li class="select-list-item"><a href="#"><span>网易云课堂</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="select-list-home fl">
+					<div class="select-title">
+						<div class="l-t-t ul"><a href="#">网易首页</a></div>
+						<div></div>
+					</div>
+				</div>
+			</div>
+			<div class="fr">
+				<div class="ntes-nav-select select-list-landing fl">
+					<div class="select-title">
+						<div class="l-t-t">登录</div>
+						<div></div>
+					</div>
+					<div class="select-list-wrap">
+						<ul class="select-list">
+							<li class="select-list-item"><a href="#"></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="ntes-nav-select select-list-register fl">
+					<div class="select-title">
+						<div class="l-t-t">注册免费邮箱
+							<div class="select-title-arr"></div>
+						</div>
+					</div>
+					<div class="select-list-wrap">
+						<ul class="select-list">
+							<li class="select-list-item"><a href="#"><span>注册VIP邮箱（特权邮箱，付费）</span></a></li>
+							<li class="select-list-item"><a href="#"><span>免费下载网易官方手机邮箱应用</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="ntes-nav-select select-list-kaola bi fl">
+					<div class="select-title">
+						<div class="l-t-t">
+							<!-- KAOLA -->
+							<div class="select-title-arr"></div>
+						</div>
+						<div></div>
+					</div>
+					<div class="select-list-wrap">
+						<ul class="select-list">
+							<li class="select-list-item"><a href="#"><span>母婴专区</span></a></li>
+							<li class="select-list-item"><a href="#"><span>美容彩妆</span></a></li>
+							<li class="select-list-item"><a href="#"><span>家居日用</span></a></li>
+							<li class="select-list-item"><a href="#"><span>进口美食</span></a></li>
+							<li class="select-list-item"><a href="#"><span>营养保健</span></a></li>
+							<li class="select-list-item"><a href="#"><span>海外直邮</span></a></li>
+							<li class="select-list-item"><a href="#"><span>客户端下载</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="ntes-nav-select select-list-mail bi fl">
+					<div class="select-title">
+						<div class="l-t-t">
+							<!-- 邮箱 -->
+							<div class="select-title-arr"></div>
+						</div>
+						<div></div>
+					</div>
+					<div class="select-list-wrap">
+						<ul class="select-list">
+							<li class="select-list-item"><a href="#"><span>免费邮箱</span></a></li>
+							<li class="select-list-item"><a href="#"><span>VIP邮箱</span></a></li>
+							<li class="select-list-item"><a href="#"><span>企业邮箱</span></a></li>
+							<li class="select-list-item"><a href="#"><span>免费注册</span></a></li>
+							<li class="select-list-item"><a href="#"><span>快速注册</span></a></li>
+							<li class="select-list-item"><a href="#"><span>客户端下载</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="ntes-nav-select select-list-money bi fl">
+					<div class="select-title">
+						<div class="l-t-t">
+							<!-- 一卡通 -->
+							<div class="select-title-arr"></div>
+						</div>
+						<div></div>
+					</div>
+					<div class="select-list-wrap">
+						<ul class="select-list">
+							<li class="select-list-item"><a href="#"><span>一卡通充值</span></a></li>
+							<li class="select-list-item"><a href="#"><span>一卡通购买</span></a></li>
+							<li class="select-list-item"><a href="#"><span>我的网易宝</span></a></li>
+							<li class="select-list-item"><a href="#"><span>网易理财</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="ntes-nav-select select-list-cart bi fl">
+					<div class="select-title">
+						<div class="l-t-t">
+							<!-- 商店 -->
+							<div class="select-title-arr"></div>
+						</div>
+						<div></div>
+					</div>
+					<div class="select-list-wrap">
+						<ul class="select-list">
+							<li class="select-list-item"><a href="#"><span>彩票</span></a></li>
+							<li class="select-list-item"><a href="#"><span>贵金属</span></a></li>
+							<li class="select-list-item"><a href="#"><span>车险</span></a></li>
+							<li class="select-list-item"><a href="#"><span>电影票</span></a></li>
+							<li class="select-list-item"><a href="#"><span>火车票</span></a></li>
+							<li class="select-list-item"><a href="#"><span>秀品商城</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="ntes-nav-select select-list-huatian bi fl">
+					<div class="select-title">
+						<div class="l-t-t">
+							<!-- 花田 -->
+							<div class="select-title-arr"></div>
+						</div>
+						<div></div>
+					</div>
+					<div class="select-list-wrap">
+						<ul class="select-list">
+							<li class="select-list-item"><a href="#"><span>找对象</span></a></li>
+							<li class="select-list-item"><a href="#"><span>搭讪广场</span></a></li>
+							<li class="select-list-item"><a href="#"><span>我的花田</span></a></li>
+							<li class="select-list-item"><a href="#"><span>下载花田客户端</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="ntes-nav-select select-list-lofter bi fl">
+					<div class="select-title">
+						<div class="l-t-t">
+							<!-- lofter -->
+							<div class="select-title-arr"></div>
+						</div>
+						<div></div>
+					</div>
+					<div class="select-list-wrap">
+						<ul class="select-list">
+							<li class="select-list-item"><a href="#"><span>进入LOFTER</span></a></li>
+							<li class="select-list-item"><a href="#"><span>热门话题</span></a></li>
+							<li class="select-list-item"><a href="#"><span>专题精选</span></a></li>
+							<li class="select-list-item"><a href="#"><span>下载LOFTER客户端</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="ntes-nav-select select-list-bobo bi fl">
+					<div class="select-title">
+						<div class="l-t-t">
+							<!-- BOBO -->
+							<div class="select-title-arr"></div>
+						</div>
+						<div></div>
+					</div>
+					<div class="select-list-wrap">
+						<ul class="select-list">
+							<li class="select-list-item"><a href="#"><span>女神视频直播</span></a></li>
+							<li class="select-list-item"><a href="#"><span>女神排行榜</span></a></li>
+							<li class="select-list-item"><a href="#"><span>女神资讯</span></a></li>
+							<li class="select-list-item"><a href="#"><span>下载BoBo客户端</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="ntes-nav-select select-list-newsapp bi fl">
+					<div class="select-title">
+						<div class="l-t-t"></div>
+						<div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<div class="heading container">
+		<div class="heading-title">
+			<div class="heading-logo fl"><a href="#"></a></div>
+			<div class="heading-right fr"><a href="#"></a></div>
+			<div class="heading-left fr"><a href="#"></a></div>
+		</div>
+		<div class="heading-nav">
+			<div class="heading-nav-c heading-nav-c1">
+				<div class="heading-nav-c-l">
+					<strong><a href="#">新闻</a></strong><a href="#">军事</a><a href="#">评论</a><a href="#">图片</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">体育</a></strong><a href="#">购彩</a><a href="#">NBA</a><a href="#">中超</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">娱乐</a></strong><a href="#">电影</a><a href="#">电视</a><a href="#">音乐</a>
+				</div>
+			</div>
+			<div class="heading-nav-c heading-nav-c2">
+				<div class="heading-nav-c-l">
+					<strong><a href="#">财经</a></strong><a href="#">股票</a><a href="#">基金</a><a href="#">商业</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">视频</a></strong><a href="#">资讯</a><a href="#">综艺</a><a href="#">公开课</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">女人</a></strong><a href="#">时尚</a><a href="#">美容</a><a href="#">情感</a>
+				</div>
+			</div>
+			<div class="heading-nav-c heading-nav-c3">
+				<div class="heading-nav-c-l">
+					<strong><a href="#">科技</a></strong><a href="#">酒香</a><a href="#" style="width:50px">智能硬件</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">手机</a></strong><a href="#">海淘</a><a href="#">手机库</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">数码</a></strong><a href="#">家电</a><a href="#">电脑</a>
+				</div>
+			</div>
+			<div class="heading-nav-c heading-nav-c4">
+				<div class="heading-nav-c-l">
+					<strong><a href="#">汽车</a></strong><a href="#">购车</a><a href="#">选车</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">旅游</a></strong><a href="#">车险</a><a href="#">健康</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">房产</a></strong><a href="#">家居</a><a href="#">二手房</a>
+				</div>
+			</div>
+			<div class="heading-nav-c heading-nav-c5">
+				<div class="heading-nav-c-l">
+					<strong><a href="#">博客</a></strong><a href="#">海外</a><a href="#">小说</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">游戏</a></strong><a href="#">彩票</a><a href="#">探索</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">论坛</a></strong><a href="#">摄影</a><a href="#">佛学</a>
+				</div>
+			</div>
+			<div class="heading-nav-c heading-nav-c6">
+				<div class="heading-nav-c-l">
+					<strong><a href="#">教育</a></strong><a href="#">本地</a><a href="#" style="text-align:right">云课堂</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">亲子</a></strong><a href="#">君子</a><a href="#" style="text-align:right">艺术</a>
+				</div>
+				<div class="heading-nav-c-l">
+					<strong><a href="#">网易热</a></strong><a href="#">公益</a><a href="#" style="text-align:right">交友</a>
+				</div>
+			</div>
+		</div>
+		<div class="heading-ad">
+			<div class="heading-ad-l fl">
+				<ul>
+					<li class="tab-u active">
+						<a href="#">教育</a>
+						<div class="heading-ad-arr"></div>
+					</li>
+					<li class="tab-u">
+						<a href="#">出国</a>
+						<div class="heading-ad-arr"></div>
+					</li>
+					<li class="tab-u">
+						<a href="#">招生</a>
+						<div class="heading-ad-arr"></div>
+					</li>
+				</ul>
+				<div class="heading-ad-content heading-ad-content-l" style="display:block">
+					<div><a href="#">看大易为你分享提分技巧</a></div>
+					<div><a href="#">啊啊啊啊啊</a></div>
+					<div><a href="#">全新留学咨询体验</a></div>
+					<div><a href="#">洋高考首选爱迪学校</a></div>
+					<div><a href="#">再现英伦课堂，同步授课</a></div>
+					<div><a href="#">水水水水水水</a></div>
+				</div>
+				<div class="heading-ad-content heading-ad-content-l">
+					<div><a href="#">是我哦哦看到信息</a></div>
+					<div><a href="#">新东方秋季报名入口</a></div>
+					<div><a href="#">全新留学咨询体验</a></div>
+					<div><a href="#">点点点点点点</a></div>
+					<div><a href="#">喂喂喂喂喂喂</a></div>
+					<div><a href="#">人民大学在职研究生招生</a></div>
+				</div>
+				<div class="heading-ad-content heading-ad-content-l">
+					<div><a href="#">看大易为你分享提分技巧</a></div>
+					<div><a href="#">新东方秋季报名入口</a></div>
+					<div><a href="#">是的哇黑头粉刺宝宝呢</a></div>
+					<div><a href="#">洋高考首选爱迪学校</a></div>
+					<div><a href="#">再现英伦课堂，同步授课</a></div>
+					<div><a href="#">人民大学在职研究生招生</a></div>
+				</div>
+			</div>
+			<div class="heading-ad-c">
+				<a href="#">超万人1元拿走iPhone</a>
+				<a href="#">《态度》公开课开讲啦</a>
+				<a href="#">500明星汇集云音乐</a>
+				<a href="#">才23岁就被父母逼婚</a>
+				<a href="#">免费约车 随时看房</a>
+				<img src="img/heading_ad_c.png" alt="ad">
+				<a href="#">百款网游点卡大优惠</a>
+				<a href="#">388元礼包免费送</a>
+				<a href="#">中国股市已无药可救？</a>
+				<a href="#">超给力优惠券免费领</a>
+				<a href="#">500万加油卡任你抢</a>
+			</div>
+			<div class="heading-ad-r">
+				<ul>
+					<li class="tab-u active">
+						<a href="#">教育</a>
+						<div class="heading-ad-arr"></div>
+					</li>
+					<li class="tab-u">
+						<a href="#">出国</a>
+						<div class="heading-ad-arr"></div>
+					</li>
+					<li class="tab-u">
+						<a href="#">招生</a>
+						<div class="heading-ad-arr"></div>
+					</li>
+				</ul>
+				<div class="heading-ad-content heading-ad-content-r" style="display:block">
+					<div><a href="#">看大易为你分享提分技巧</a></div>
+					<div><a href="#">啊啊啊啊啊</a></div>
+					<div><a href="#">全新留学咨询体验</a></div>
+					<div><a href="#">洋高考首选爱迪学校</a></div>
+					<div><a href="#">再现英伦课堂，同步授课</a></div>
+					<div><a href="#">水水水水水水</a></div>
+				</div>
+				<div class="heading-ad-content heading-ad-content-r">
+					<div><a href="#">是我哦哦看到信息</a></div>
+					<div><a href="#">新东方秋季报名入口</a></div>
+					<div><a href="#">全新留学咨询体验</a></div>
+					<div><a href="#">点点点点点点</a></div>
+					<div><a href="#">喂喂喂喂喂喂</a></div>
+					<div><a href="#">人民大学在职研究生招生</a></div>
+				</div>
+				<div class="heading-ad-content heading-ad-content-r">
+					<div><a href="#">看大易为你分享提分技巧</a></div>
+					<div><a href="#">新东方秋季报名入口</a></div>
+					<div><a href="#">是的哇黑头粉刺宝宝呢</a></div>
+					<div><a href="#">洋高考首选爱迪学校</a></div>
+					<div><a href="#">再现英伦课堂，同步授课</a></div>
+					<div><a href="#">人民大学在职研究生招生</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		(function(){
+			[].forEach.call(document.querySelectorAll(".ntes-nav-select"),function(item){
+				item.onmouseover = function(){
+					clearTimeout(this.timer);
+					item.querySelector(".select-title-arr").style.transition = "all .5s";
+					item.querySelector(".select-title-arr").style.transform = "rotate(180deg)";
+					item.querySelector(".select-title-arr").style.marginTop = "6px";
+					item.style.backgroundColor = "#1e1e1e";
+					this.timer = setTimeout(function(){
+						item.querySelector(".select-list-wrap").style.display = "block";
+					},200);
+					
+				}
+				item.onmouseout = function(){
+					clearTimeout(this.timer);
+					this.timer = setTimeout(function(){
+						item.querySelector(".select-list-wrap").style.display = "none";
+						item.querySelector(".select-title-arr").style.transition = "all 0s";
+						item.querySelector(".select-title-arr").style.transform = "rotate(0deg)";
+						item.querySelector(".select-title-arr").style.marginTop = "10px";
+						item.style.backgroundColor = "#333";
+					},200);
+				}
+			})
+			Array.prototype.forEach.call(document.querySelectorAll(".heading-ad ul"),function(item){
+				for(var i = 0; i < item.querySelectorAll(".tab-u").length;i++){
+					item.querySelectorAll(".tab-u a")[i].index = i;
+					item.parentNode.querySelectorAll(".heading-ad-content")[i].index = i;
+					item.querySelectorAll(".tab-u a")[i].onmouseover = function(){
+						var _this = this;
+						clearTimeout(this.timer);
+						this.timer = setTimeout(function(){
+							Array.prototype.forEach.call(_this.parentNode.parentNode.querySelectorAll(".tab-u"),function(item){
+								item.className = "tab-u";
+								item.parentNode.parentNode.querySelectorAll(".heading-ad-content")[item.querySelector("a").index].style.display = "none";
+							})
+							item.parentNode.querySelectorAll(".heading-ad-content")[_this.index].style.display = "block";
+							item.querySelectorAll(".tab-u a")[_this.index].parentNode.className = "tab-u active";
+							
+						},200)
+					}
+				}
+			})
+		})()
+	</script>
+</body>
+</html>

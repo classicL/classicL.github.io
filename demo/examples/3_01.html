@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义右键菜单</title>
+	<style>
+	body,div,ul,li {padding: 0;margin: 0;}
+	html,body { height: 100%; }
+	ul{ list-style: none; }
+	.menu,.menu2 { border: 1px solid #aaa; box-shadow: 1px 1px 2px;	background: #f8f8f8; }
+	.menu { width: 140px;position: absolute; display: none; left: 0; }
+	.menu li{ position: relative; height: 30px;line-height: 30px; padding: 10px 20px;}
+	.menu li:hover,.menu2 li:hover {background: #d4d4d4}
+	.menu2 { display: none; position: absolute; width: 100px; left: 140px; top: 20px; }
+	span { position: absolute; width: 0; height: 0; border-width: 4px; border-style: solid; border-color: transparent transparent transparent #000; right: 10px; top: 20px;}
+	</style>
+</head>
+<body>
+	<ul class="menu">
+		<li>11112</li>
+		<li>2222<span></span>
+			<ul class="menu2">
+				<li>a</li>
+				<li>b</li>
+				<li>c</li>
+			</ul>
+		</li>
+		<li>3333<span></span>
+			<ul class="menu2">
+				<li>d</li>
+				<li>e</li>
+				<li>f</li>
+			</ul>
+		</li>
+		<li>4444</li>
+	</ul>
+	<script>
+		(function(){
+			var menu = document.querySelector('.menu');
+			var menu_2 = document.querySelectorAll('.menu2');
+			var list = menu.querySelectorAll('li');
+
+			document.oncontextmenu=function(e){
+				var x = e.pageX,
+					y = e.pageY;
+				reset();
+				menu.style.display = 'block';
+				setMenu(x,y);
+				menu.oncontextmenu = function(e){
+					e.stopPropagation();
+					return false;
+				}
+				menu.onclick = function(e){
+					e.stopPropagation();
+				}
+				return false;
+			};
+
+			for (var i = list.length - 1; i >= 0; i--) {
+				list[i].onmouseover = function(e){
+					clearTimeout(this.timer1);
+					if(this.querySelector('.menu2')){
+						var m = this.querySelector('.menu2');
+						this.timer2 = setTimeout(function(){
+							var x = e.pageX,
+								y = e.pageY;
+							m.style.display = 'block';
+							setMenu2(m,x,y);
+						},300);
+					}
+				}
+				list[i].onmouseout = function(){
+					clearTimeout(this.timer2);
+					if(this.querySelector('.menu2')){
+						var m = this.querySelector('.menu2');
+						this.timer1 = setTimeout(function(){m.style.display = 'none'},300);
+					}
+				}
+			};
+			
+			function reset(){
+				menu.style.display = 'none';
+				for (var i = 0; i < menu_2.length; i++) {
+					menu_2[i].style.display = 'none';
+				}
+			}
+			function setMenu(x,y){
+				if( x + menu.offsetWidth >= document.body.clientWidth ) x = document.body.clientWidth - menu.offsetWidth;
+				if( y + menu.offsetHeight >= document.body.clientHeight ) y = document.body.clientHeight - menu.offsetHeight;
+				menu.style.left = x + 'px';
+				menu.style.top = y + 'px';
+			}
+			function setMenu2(obj,x,y){
+				obj.style.left = 140 + "px";
+				obj.style.top = 20 + "px";
+				if(x + menu.offsetWidth + obj.offsetWidth >= document.body.clientWidth) obj.style.left = -obj.offsetWidth + "px";
+				if(y + obj.offsetHeight + 20 >= document.body.clientHeight) obj.style.top = -obj.offsetHeight + "px";
+			}
+			document.onclick = function() {
+				menu.style.display = 'none';
+			}
+		})()
+	</script>
+</body>
+</html>

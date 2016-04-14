@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>去掉头和尾的空格</title>
+</head>
+<body>
+	<input type="text" value="   [ bla  n k]     ">
+	<button>操作</button>
+	<script>
+		document.querySelector("button").onclick = function(){
+			document.querySelector("input").value = document.querySelector("input").value.replace(/^\s*|\s*$/g,'');
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>级联菜单</title>
+	<style>
+	form { width: 800px; height: 200px; margin: 100px auto; padding-bottom: 50px; border: 1px solid #000; }
+	div { padding-top: 50px; }
+	.choose { display: flex; justify-content: space-around; }
+	#school-wrap span,#emplorer-wrap span { width: 100px; margin: 0 50px; }
+	#emplorer-wrap { display: none; }
+	#area { width: 200px; }
+	#school { width: 400px; }
+	#emplorer { width: 610px; height: 30px; padding: 0 5px; border: 1px solid rgb(169,169,169); }
+	select { height: 30px; }
+	label { position: relative; }
+	input[type="radio"] { opacity: 0; padding: 0; margin: 0 5px 0 0; }
+	input[type="radio"] + span { position: absolute; top: 0; left: 0; width: 16px; height: 16px; border: 1px solid #ccc; border-radius: 16px; }
+	input[type="radio"]:checked + span { width: 10px; height: 10px; border: 5px solid #00cd9d; }
+	</style>
+</head>
+<body>
+	<form action="#">
+		<div class="choose">
+			<label for="in-school">
+				<input type="radio" id="in-school" value="in-school" name="status" checked="checked">
+				<span></span>
+				<span>在校生</span>
+			</label>
+			<label for="out-school">
+				<input type="radio" id="out-school" value="out-school" name="status">
+				<span></span>
+				<span>非在校生</span>
+			</label>
+		</div>
+		<div id="school-wrap">
+			<span>学校</span>
+			<select name="area" id="area"></select>
+			<select name="school" id="school"></select>
+		</div>
+		<div id="emplorer-wrap">
+			<span>单位</span>
+			<input type="text" id="emplorer" name="explorer">
+		</div>
+	</form>
+	<script>
+		(function(){
+			var school = {
+				"北京": ["清华大学","北京大学","北京航空航天大学","北京理工大学"],
+				"上海": ["上海交通大学","复旦大学","同济大学","上海财经大学"],
+				"西安": ["西安交通大学","西安电子科技大学","西北工业大学","西北农林科技大学"],
+				"武汉": ["武汉大学","华中科技大学","华中师范大学","武汉理工大学"],
+				"广州": ["中山大学","华南理工大学","华南师范大学","暨南大学"]
+			}
+			function $(str){
+				return document.querySelector(str);
+			}
+			function setEvent(obj,event,func){
+				obj["on" + event] = function(){
+					func(obj);
+				}
+			}
+			function setSchool(){
+				$("#school").innerHTML = "";
+				school[$("#area").value].forEach(function(data){
+					$("#school").innerHTML += "<option>" + data + "</option>";
+				})
+			}
+			function setCity(){
+				for(var i in school){
+					$("#area").innerHTML += "<option>" + i + "</option>";
+				}
+			}
+			function init(){
+				setCity();
+				setSchool();
+			}
+			setEvent($("#area"),"change",setSchool);
+			setEvent($("#in-school"),"click",function(item){
+				if(item.checked === true){
+					$("#school-wrap").style.display = "block";
+					$("#emplorer-wrap").style.display = "none";
+				}
+			})
+			setEvent($("#out-school"),"click",function(item){
+				if(item.checked === true){
+					$("#school-wrap").style.display = "none";
+					$("#emplorer-wrap").style.display = "block";
+				}
+			})
+			init();
+		})()
+	</script>
+</body>
+</html>

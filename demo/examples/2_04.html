@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+    #main{ position: relative; margin: 0 auto; }
+    .box{ padding: 10px 0 0 15px; float: left; }
+    .pic{ padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0px 0px 5px #ccc; width: 320px; }
+    .pic img{ display: block; width: 320px; height: auto; }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div class="box">
+            <div class="pic"><img src="img/1.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/2.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/3.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/4.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/5.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/6.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/7.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/8.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/9.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/1.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/2.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/3.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/4.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/5.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/6.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/7.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/8.jpg" alt=""/></div>
+        </div>
+        <div class="box">
+            <div class="pic"><img src="img/9.jpg" alt=""/></div>
+        </div>
+    </div>
+    <script>
+        window.onload = function(){
+            function waterfall(par,sub){
+                var parent = document.getElementById(par);
+                var items = document.getElementsByClassName(sub);
+                var heightArr = [];
+
+                var lines = Math.floor(document.documentElement.clientWidth / items[0].offsetWidth);
+
+                parent.style.width = lines * items[0].offsetWidth + "px";
+
+                for(var i = 0; i < items.length; i++){
+                    if(i < lines){
+                        heightArr.push(items[i].offsetHeight)
+                    }else{
+                        var minH = Math.min.apply(null,heightArr);
+                        var pos = 0;
+                        for(var j = 0; j < heightArr.length; j++){
+                            if(minH === heightArr[j]){
+                                pos = j;
+                                break;
+                            }
+                        }
+                        items[i].style.position = 'absolute';
+                        items[i].style.top = minH + 'px';
+                        items[i].style.left = pos * items[0].offsetWidth + "px";
+                        heightArr[pos] += items[i].offsetHeight;
+                        console.log(heightArr[pos])
+                    }
+                }
+            }
+            function needToAdd(par,sub){
+                var parent = document.getElementById(par);
+                var items = document.getElementsByClassName(sub);
+
+                if(items[items.length - 1].offsetTop  < document.body.scrollTop + document.documentElement.clientHeight){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            var dataImg = {"data":[{"src":"img/2.jpg"},{"src":"img/4.jpg"},{"src":"img/5.jpg"},{"src":"img/7.jpg"},{"src":"img/1.jpg"},{"src":"img/3.jpg"}]}
+            window.onscroll = function(){
+                if(needToAdd('main','box')){
+                    for(var i = 0, len = dataImg.data.length; i < len; i++){
+                        var box = document.createElement('div');
+                        box.className = 'box';
+                        document.getElementById('main').appendChild(box);
+                        var pic = document.createElement('div');
+                        pic.className = 'pic';
+                        box.appendChild(pic);
+                        var img = document.createElement('img');
+                        img.src = dataImg.data[i].src;
+                        pic.appendChild(img);
+                    }
+                    waterfall('main','box');
+                }
+            }
+            waterfall('main','box');
+        }
+    </script>
+</body>
+</html>

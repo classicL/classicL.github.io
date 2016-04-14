@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象的选项卡</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+	body,div,ul,li { margin: 0;padding: 0; }
+	ul { list-style: none; }
+	.tabs { width: 730px; height: 454px; left: 50%; margin: 50px auto;}
+	.list { position: relative; bottom: 40px; left: 325px; }
+	.list li { width: 10px; height: 10px; float: left;  margin: 5px; border-radius: 10px; background-color: #aaa; }
+	.list .active { background: #ccc; border-bottom: 1px solid #fff;}
+	.content { position: relative; width: 730px; height: 454px;}
+	.content li { position: absolute;  width: 730px; height: 454px; text-align: center; line-height: 200px; display: none; background: #ccc;}
+	.content li:first-child { display: block; }
+	</style>
+</head>
+<body>
+	<div class="tabs">
+		<ul class="content">
+			<li><img src="img/tab1.jpg" alt=""></li>
+			<li><img src="img/tab2.jpg" alt=""></li>
+			<li><img src="img/tab3.jpg" alt=""></li>
+			<li><img src="img/tab4.jpg" alt=""></li>
+		</ul>
+		<ul class="list">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<script>
+	window.onload = function(){
+		new Tabs('.tabs',{
+			effect:true,
+			intertime:800,
+			autoplay: true,
+			delaytime: 2000,
+			trigger: 'click'
+		});
+	}
+
+	function Tabs(selector,config){
+		this.tabs = document.querySelector(selector);
+		this.lists = this.tabs.querySelector('.list').getElementsByTagName('li');
+		this.contents = this.tabs.querySelector('.content').getElementsByTagName('li');
+
+		this.config = config || {};
+		this.effect = this.config.effect || false;
+		this.intertime = this.config.intertime || 0;
+		this.ap = this.config.autoplay || false;
+		this.delaytime = this.config.delaytime || 0;
+		this.trigger = this.config.trigger || 'mouseover';
+		this.index0 = 0;
+
+		this.init();
+	}
+
+	Tabs.prototype.init = function(){
+		var T = this;
+		for (var i = this.lists.length - 1; i >= 0; i--) {
+			this.lists[i].index = i;
+			this.contents[i].index = i;
+		}
+
+		this.change();
+		this.ap?this.autoPlay():false;
+	}
+
+	Tabs.prototype.change = function(){
+		var T = this;
+		for (var i = T.lists.length - 1; i >= 0; i--) {
+			T.lists[i].addEventListener("mouseover",function(){
+				clearInterval(T.timer);
+				if (this.index !== T.index0) {
+					T.moveTo(this.index,T);
+					T.index0 = this.index;
+				};
+				T.ap?T.autoPlay():false;
+			}) 
+		};
+		
+	}
+
+	Tabs.prototype.moveTo = function(index,T){
+		for (var i = T.lists.length - 1; i >= 0; i--) {
+			T.contents[i].style.display = 'none';
+			T.lists[i].className = '';
+			T.lists[index].className = 'active';
+		};
+		T.contents[index].style.display = 'block';
+		T.effect?T.fade(T.contents[index]):false;
+	}
+
+
+	Tabs.prototype.autoPlay = function(){
+		var T = this;
+		clearInterval(T.timer);
+		T.timer = setInterval(function(){
+			if (T.index0==3) {
+				T.index0 = 0
+			}else{T.index0++;}
+			T.moveTo(T.index0,T);
+		},this.delaytime);
+	}
+
+	Tabs.prototype.fade = function(obj){
+		var T = this;
+		setOpacity(obj,0);
+		clearInterval(this.timer2);
+		var i = 1;
+		T.timer2 = setInterval(function(){
+			if (i<20) {
+				setOpacity(obj, i * 0.05);
+			}else{
+				clearInterval(T.timer2);
+			}
+			i++;
+		},this.intertime/20);
+	}
+
+	function setOpacity(obj,i){
+		obj.style.opacity = i;
+		obj.style.filter = 'alpha(opacity=' + i*100 + ')';
+	}
+
+	</script>
+</body>
+</html>

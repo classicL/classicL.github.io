@@ -1,0 +1,55 @@
+<!DOCTYPE>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>表格行添加与删除</title>
+<body>
+  <div>
+    <label>内容1：<input id="content1" type="text"></label><br>
+    <label>内容2：<input id="content2" type="text"></label><br>
+    <button id="add-btn">确认添加</button>
+  </div>
+  <table border="1" cellspacing="0" id="table">
+  </table>
+  <script>
+    (function(){
+      var data = {};
+      function addData(){
+        data[document.getElementById("content1").value] = document.getElementById("content2").value;
+      }
+      function render() {
+        var table = document.getElementById("table");
+        if(JSON.stringify(data) === "{}"){
+          table.innerHTML = "";
+          return;
+        }
+        var text = "<tr><td>内容1</td><td>内容2</td><td>操作</td></tr>"
+        for(var i in data){
+          text += "<tr><td>" + i + "</td><td>" + data[i] +　"</td><td style='cursor: pointer;' class='del'>删除</td></tr>"
+        }
+        table.innerHTML = text;
+      }
+      function addBtnHandle() {
+        addData();
+        render();
+      }
+      function delBtnHandle(target) {
+        var key = target.parentNode.firstChild.innerHTML;
+        delete data[key];
+        render();
+      }
+      function init() {
+        document.onclick = function(e){
+          if(e.target.id === "add-btn"){
+            addBtnHandle();
+          }
+          if(e.target.className === "del"){
+            delBtnHandle(e.target);
+          }
+        }
+      }
+      init();
+    })()
+  </script>
+</body>
+</html>

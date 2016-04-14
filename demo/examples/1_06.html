@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>模拟select</title>
+	<style>
+	.box { position: relative; width: 260px; height: 40px; padding-top: 10px; margin: 0 auto; background-color: #e7e7e7; border-radius: 8px; }
+	p,ul { margin-left: 40px; border: 1px solid #888;  padding-left: 10px; border-radius: 5px; }
+	p { position: relative; width: 100px; background-color: #d4d4d4; height: 30px; line-height: 30px; margin-top: 0; margin-bottom: 0; border-radius: 5px; }
+	span { position: absolute; right: 14px; top: 12px; width: 0; height: 0; border-width: 6px; border-style: solid; border-color: #666 transparent transparent; }
+	ul { list-style: none; display: -none; width: 110px; background-color: #fff; margin-top: 0; border-top: none; padding-top: 5px; padding-bottom: 5px; display: none; padding-left: 0; }
+	button { position: absolute; right: 40px; top: 10px; height: 32px; width: 60px; border: none; background-color: #fff; }
+	li { padding-left: 10px; line-height: 25px; }
+	li:hover { background-color: #e6e6e6; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<p>选择城市<span></span></p>
+		<ul>
+			<li>北京</li>
+			<li>上海</li>
+			<li>广州</li>
+			<li>深圳</li>
+			<li>西安</li>
+			<li>武汉</li>
+			<li>成都</li>
+		</ul>
+		<button>搜索</button>
+	</div>
+	<script>
+		(function(){
+			var ul = document.querySelector("ul"),
+				p = document.querySelector("p"),
+				list = document.querySelectorAll("li");
+			p.onclick = function(){
+				if (ul.style.display === "block") {
+					ul.style.display = "none";
+				}else{
+					ul.style.display = "block";
+				}
+			}
+			for (var i = 0; i < list.length; i++) {
+				list[i].onclick = function(){
+					ul.style.display = "none";
+					p.innerHTML = this.innerHTML + "<span></span>"
+				}
+			}
+		})()
+	</script>
+</body>
+</html>

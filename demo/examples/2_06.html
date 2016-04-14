@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dom的插入删除与交换</title>
+	<style>
+	.resault { display: flex; align-items: flex-end; height: 600px; }
+	.resault span { width: 24px; text-align: center; background-color: #f00; display: inline-block; margin-left: 2px; color: #fff; font: 12px "微软雅黑"; }
+	</style>
+</head>
+<body>
+	<div id="ctrl">
+		<input type="text" id="input" placeholder="请输入10-100的数字">
+		<button id="left-in">左侧入</button>
+		<button id="right-in">右侧入</button>
+		<button id="left-out">左侧出</button>
+		<button id="right-out">右侧出</button>
+		<button id="sort">排序</button>
+		<span id="input-error" style="visibility: hidden;">请输入10-100的数字</span>
+	</div>
+	<div class="resault"></div>
+	<script>
+	(function(){
+		//验证输入是否为数字
+		function validate(input){
+			var numReg = new RegExp("^[0-9]+$");
+			if(numReg.test(input)){
+				return parseInt(input)>=10 && input <= 100;
+			}
+		}
+		//创建元素
+		function create(value){
+			var elem = document.createElement("span");
+			elem.innerHTML = value;
+			elem.className = "item";
+			elem.style.height = value * 5 + "px";
+			return elem;
+		}
+		function sort(){
+			var list = document.getElementsByClassName("resault")[0].getElementsByClassName("item");
+			document.getElementById("left-in").disabled = true;
+			document.getElementById("right-in").disabled = true;
+			document.getElementById("left-out").disabled = true;
+			document.getElementById("right-out").disabled = true;
+			var i = 0;
+			var timer = setInterval(function(){
+				var key = {"index":i,"val":Number(list[i].innerHTML)};
+				for (var j = i+1; j < list.length; j++) {
+					if (key.val > Number(list[j].innerHTML)) {
+						key.val = Number(list[j].innerHTML);
+						key.index = j;
+					}
+				}
+				if(i !== key.index) {
+					var node = list[i];
+					list[0].parentNode.insertBefore(list[key.index],list[i]);
+					list[0].parentNode.removeChild(list[i+1]);
+					list[0].parentNode.insertBefore(node,list[key.index]);
+				}
+				
+				if (++i === list.length) {
+					clearInterval(timer);
+					document.getElementById("left-in").disabled = false;
+					document.getElementById("right-in").disabled = false;
+					document.getElementById("left-out").disabled = false;
+					document.getElementById("right-out").disabled = false;
+				}
+			},300)
+		}
+		function init(){
+			for (var i = 0; i < 30; i++) {
+				var elem = create(Math.floor(Math.random()*91) + 10);
+				document.querySelector(".resault").appendChild(elem);
+			}
+		}
+		document.onclick = function(e){
+			var resault = document.querySelector(".resault");
+			if(e.target.id === "left-out"){
+				if(resault.innerHTML === ""){
+					alert("容器已为空");
+					return;
+				}
+				var elem = resault.childNodes[0]
+				resault.removeChild(elem);
+				alert(elem.innerHTML);
+			}
+			if(e.target.id === "right-out"){
+				if(resault.innerHTML === ""){
+					alert("容器已为空");
+					return;
+				}
+				var elem = resault.childNodes[resault.childNodes.length-1]
+				resault.removeChild(elem);
+				alert(elem.innerHTML);
+			}
+			if (e.target.className === "item") {
+				resault.removeChild(e.target)
+			}
+			if (e.target.id === "sort") {
+				sort();
+			}
+			//验证输入
+			if(e.target.tagName === "BUTTON"){
+				if(!validate(document.getElementById('input').value)){
+					document.getElementById("input-error").style.visibility = "visible";
+					return;
+				}
+				document.getElementById("input-error").style.visibility = "hidden";
+			}
+			if(e.target.id === "left-in"){
+				if(resault.childNodes.length && resault.childNodes.length >= 60){
+					alert("最多添加60个元素");
+					return;
+				}
+				resault.insertBefore(create(document.getElementById('input').value),resault.firstChild);
+
+			}
+			if(e.target.id === "right-in"){
+				if(resault.childNodes.length && resault.childNodes.length >= 60){
+					alert("最多添加60个元素");
+					return;
+				}
+				resault.appendChild(create(document.getElementById('input').value));
+			}
+		}
+		init();
+	})()
+	</script>
+</body>
+</html>

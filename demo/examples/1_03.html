@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单验证</title>
+</head>
+<body>
+	<label>name：<input id="name" type="text" placeholder="请输入字母"><span style="visibility: hidden;">请输入字母</span></label><br>
+    <label>number:<input id="num" type="text" placeholder="请输入数字"><span style="visibility: hidden;">请输入数字</span></label><br>
+    <button id="btn">验证</button>
+	<script>
+		(function(){
+			document.getElementById("btn").onclick = function(){
+				var strExp = /^[a-zA-Z\s]+$/g;
+				var numExp = /^\d+$/g;
+				var city = document.getElementById('name');
+				var value = document.getElementById('num');
+				city.nextElementSibling.style.visibility = "hidden";
+				value.nextElementSibling.style.visibility = "hidden";
+				if(!strExp.test(city.value.trim())) city.nextElementSibling.style.visibility = "visible";
+				if(!numExp.test(value.value.trim())) value.nextElementSibling.style.visibility = "visible";
+			}
+		})()
+	</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js demo</title>
+	<style>
+	body,div,ol,ul,li,h2 { margin: 0; padding: 0; }
+	body,a { font-family: "微软雅黑"; font-size: 20px; color: #205dd2; }
+	a { text-decoration: none; }
+	ol { padding: 0 20px; }
+	ul { list-style: none; margin-left: 10px; }
+	.box { width: 350px; margin: 50px auto; border: 1px solid #ccc; padding: 30px 50px; box-shadow: 0 0 4px #aaa; }
+	.item-list { line-height: 40px; display: none; }
+	h2 { cursor: pointer; font-size: 1.2em; line-height: 60px; transition: all .4s; border-radius: 6px;  }
+	h2:hover { background-color: #393; color: #fff; padding-left: 20px; }
+	.item-list a { display: inline-block; width: 100%; height: 100%;  }
+	.item-list li { transition: all .4s; }
+	.item-list li:hover { background-color: #393; color: #fff; padding-left: 20px; border-radius: 5px; }
+	.item-list li:hover a { color: #fff; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ol>
+			<li>
+				<h2>表单操作</h2>
+				<ul class="item-list">
+					<li><a href="examples/1_01.html" target="_blank">去掉头和尾的空格</a></li>
+					<li><a href="examples/1_02.html" target="_blank">禁止复制粘贴</a></li>
+					<li><a href="examples/1_03.html" target="_blank">表单验证</a></li>
+					<li><a href="examples/1_04.html" target="_blank">提示输入剩余字数</a></li>
+					<li><a href="examples/1_05.html" target="_blank">复选框全选</a></li>
+					<li><a href="examples/1_06.html" target="_blank">模拟select</a></li>
+					<li><a href="examples/1_07.html" target="_blank">级联菜单</a></li>
+					<li><a href="examples/1_08.html" target="_blank">带提示的onblur表单验证</a></li>
+				</ul>
+			</li>
+			<li>
+				<h2>内容展示</h2>
+				<ul class="item-list">
+					<li><a href="examples/2_01.html" target="_blank">鼠标悬停提示</a></li>
+					<li><a href="examples/2_02.html" target="_blank">表格行添加与删除</a></li>
+					<li><a href="examples/2_03.html" target="_blank">面向对象的选项卡</a></li>
+					<li><a href="examples/2_04.html" target="_blank">瀑布流</a></li>
+					<li><a href="examples/2_05.html" target="_blank">仿网易头部导航</a></li>
+					<li><a href="examples/2_06.html" target="_blank">Dom的插入删除与交换</a></li>
+				</ul>
+			</li>
+			<li>
+				<h2>事件处理</h2>
+				<ul class="item-list">
+					<li><a href="examples/3_01.html" target="_blank">自定义右键菜单</a></li>
+					<li><a href="examples/3_02.html" target="_blank">面向对象的拖拽</a></li>
+				</ul>
+			</li>
+		</ol>
+	</div>
+	<script>
+		Array.prototype.forEach.call(document.querySelectorAll("h2"),function(item){
+			item.onclick = function(){
+				if(item.nextElementSibling.style.display === "block"){
+					item.nextElementSibling.style.display = "none";
+				}else{
+					Array.prototype.forEach.call(document.querySelectorAll("h2"),function(item){
+						item.nextElementSibling.style.display = "none";
+					})
+					item.nextElementSibling.style.display = "block";
+				}
+			}
+		})
+	</script>
+</body>
+</html>

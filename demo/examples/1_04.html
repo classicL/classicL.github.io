@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>提示输入剩余字数</title>
+</head>
+<body>
+	<textarea name="txt" id="txt" cols="30" rows="10"></textarea>
+	<div id="left">还可以输入140字</div>
+	<script>
+		(function(){
+			var txt = document.getElementById("txt");
+			txt.oninput = txt.onpropertychange  = function(){
+				var len = getLength(txt.value);
+				var left = 140 - len;
+				if(len > 140){
+					document.getElementById("left").innerHTML = "已超出" + -left + "字";
+					return;
+				}
+				document.getElementById("left").innerHTML = "还可以输入" + left + "字";
+			}
+			function getLength(str){
+				return Math.ceil(str.replace(/[^\x00-\xff]/g,"aa").length/2);
+			}
+		})()
+	</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task_2_30</title>
+	<style>
+	body,input,button,form,label{ margin: 0; padding: 0; }
+	body { font-family: "微软雅黑"; }
+	form { position: relative; margin: 100px; float: left; width: 400px; }
+	div { overflow: auto; }
+	label { display: inline-block; text-align: right; position: absolute; right: 320px; line-height: 30px; }
+	input { height: 30px; width: 300px; font: 20px "微软雅黑"; outline: none; padding-left: 5px; font-size: 14px; border: 1px solid #000; float: right; border-radius: 5px;  }
+	button { height: 32px; width: 52px; border: 1px solid #00f; outline: none; background-color: #00f; color: #fff; float: right; border-radius: 5px; }
+	p { font-size: 12px; color: #666; visibility: hidden; width: 300px; float: right; }
+	</style>
+</head>
+<body>
+	<form action="#">
+		<div>
+			<label for="name">名称</label>
+			<input type="text" id="name">
+			<p>必填，长度为4~16个字符</p>
+		</div>
+		<div>
+			<label for="pass">密码</label>
+			<input type="password" id="pass">
+			<p>6~16位的英文字母和数字</p>
+		</div>
+		<div>
+			<label for="repass">确认密码</label>
+			<input type="password" id="repass">
+			<p>再次输入相同密码</p>
+		</div>
+		<div>
+			<label for="email">邮箱</label>
+			<input type="text" id="email">
+			<p>请输入邮箱</p>
+		</div>
+		<div>
+			<label for="mobile">手机</label>
+			<input type="text" id="mobile">
+			<p>请输入11位手机号</p>
+		</div>
+		<button id="validate">验证</button>
+	</form>
+	<script>
+		(function(){
+			var validate = {
+				name: function(){
+					var node = document.querySelector("#name");
+					var str = node.value.trim();
+					var len = 0;
+					var arr = str.split("");
+					var twoReg = new RegExp("[^\\x00-\\xff]","g");
+					for (var i = 0; i < arr.length; i++) {
+						if(twoReg.test(arr[i])){
+							len += 2;
+						}else{
+							len ++;
+						}
+					}
+					if(len > 16 || len < 4){
+						setMessage(node.parentNode,"姓名长度为4-16个字符","red");
+						return;
+					}
+					setMessage(node.parentNode,"名称格式正确","#00cd00")
+				},
+				pass: function(){
+					var node = document.querySelector("#pass");
+					var str = node.value;
+					var reg = new RegExp("^[0-9a-zA-Z]+$");
+					if(str.length < 6 || str.length > 16) {
+						setMessage(node.parentNode,"密码为6~16位","red");
+						return;
+					}
+					if(reg.test(str)){
+						setMessage(node.parentNode,"密码格式正确","#00cd00");
+					}else{
+						setMessage(node.parentNode,"密码为英文字母或数字","red");
+					}
+				},
+				repass: function(){
+					var node = document.querySelector("#repass");
+					if(node.value === document.querySelector("#pass").value){
+						setMessage(node.parentNode,"密码输入一致","#00cd00");
+					}else{
+						setMessage(node.parentNode,"请输入相同密码","red");
+					}
+				},
+				email: function(){
+					var node = document.querySelector("#email");
+					var str = node.value;
+					var reg = new RegExp("^\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}$");
+					if(reg.test(str)){
+						setMessage(node.parentNode,"邮箱格式正确","#00cd00")
+					}else{
+						setMessage(node.parentNode,"邮箱格式错误","red");
+					}
+				},
+				mobile: function(){
+					var node = document.querySelector("#mobile");
+					var str = node.value;
+					var reg = new RegExp("^[1]\\d{10}$");
+					if(reg.test(str)){
+						setMessage(node.parentNode,"手机号码格式正确","#00cd00")
+					}else{
+						setMessage(node.parentNode,"手机号码格式错误","red");
+					}
+				}
+			}
+			function setMessage(obj,str,color){
+				obj.querySelector("p").innerHTML = str;
+				obj.querySelector("p").style.color = color;
+				obj.querySelector("input").style.borderColor = color;
+			}
+			function setEvent(id){
+				var node = document.querySelector("#" + id);
+				node.onfocus = function(){
+					node.parentNode.querySelector("p").style.visibility = "visible";
+				};
+				node.onblur = validate[id];
+			}
+			setEvent("name");
+			setEvent("pass");
+			setEvent("mobile");
+			setEvent("email");
+			setEvent("repass");
+			document.querySelector("#validate").onclick = function(){
+				for(var i = 0; i < document.querySelectorAll("p").length; i++){
+					if(document.querySelectorAll("p")[i].style.color !== "rgb(0, 205, 0)"){
+						alert("验证失败");
+						return;
+					}
+				}
+				alert("验证成功");
+			}
+		})()
+	</script>
+</body>
+</html>
